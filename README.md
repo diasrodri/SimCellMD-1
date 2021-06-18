@@ -246,75 +246,135 @@ tempo_f=int(tempo_max/dt)
 call writenumber(isig,num1)
 
 call writenumber(jepi,num2)
-        call writenumber(lmas,num3)
-       nomexmake='puxa_saidaxmakemol_isig'//TRIM(num1)//'iepi'//TRIM(num2)//'lmas'//TRIM(num3)//'.xyz'  
-       nomeenergia= 'puxa_energia_tempo_isig'//TRIM(num1)//'iepi'//TRIM(num2)//'lmas'//TRIM(num3)//'.dat'
-        itmp=0
-        CALL saidaxmakemol()
-        print*,'call saidaxmakemol  - ok'
-        CALL saidaParaView(itmp)
-        print *,'call saidaParaView(0)  - ok'
-        call define_ace()
-        print*,'call define_ace() - ok'
-        call imprimeresultados()
-        print*,'call imprimeresultados() - ok'
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        tempo=dt
-        print*,"tempo=",tempo
-        print*,"tpuxar=",tpuxar        
 
-        do i=1,4
-            call define_tabelavizinhos()
-            call evolucao_RK4
-            call saidaxmakemol
-            itmp=itmp+1
-            CALL saidaParaView(itmp)
-            call imprimeresultados()
-        end do
+call writenumber(lmas,num3)
 
-        do i=1,5*tempo_f
-            call PreditorCorretor()
-            if (mod(i,10)==0) call define_tabelavizinhos()
-            if (mod(i,ntprint)==0) then
-             CALL saidaxmakemol
-             itmp=itmp+1
-             !CALL saidaParaView(itmp)
-             call imprimeresultados()
-            end if
-        end do
-        deallocate(atomo)
-   end do
-  end do
- end do
+nomexmake='puxa_saidaxmakemol_isig'//TRIM(num1)//'iepi'//TRIM(num2)//'lmas'//TRIM(num3)//'.xyz'  
+
+nomeenergia= 'puxa_energia_tempo_isig'//TRIM(num1)//'iepi'//TRIM(num2)//'lmas'//TRIM(num3)//'.dat'
+
+itmp=0
+
+CALL saidaxmakemol()
+
+print*,'call saidaxmakemol  - ok'
+
+CALL saidaParaView(itmp)
+
+print *,'call saidaParaView(0)  - ok'
+
+call define_ace()
+
+print*,'call define_ace() - ok'
+
+call imprimeresultados()
+
+print*,'call imprimeresultados() - ok'
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+tempo=dt
+
+print*,"tempo=",tempo
+
+print*,"tpuxar=",tpuxar        
+
+do i=1,4
+
+call define_tabelavizinhos()
+
+call evolucao_RK4
+
+call saidaxmakemol
+
+itmp=itmp+1
+
+CALL saidaParaView(itmp)
+
+call imprimeresultados()
+
+end do
+
+do i=1,5*tempo_f
+
+call PreditorCorretor()
+
+if (mod(i,10)==0) call define_tabelavizinhos()
+
+if (mod(i,ntprint)==0) then
+
+CALL saidaxmakemol
+
+itmp=itmp+1
+
+CALL saidaParaView(itmp)
+
+call imprimeresultados()
+
+end if
+
+end do
+
+deallocate(atomo)
+
+end do
+
+end do
+
+end do
+
 end program simulaCellModelAngPot!22 Abril 2020
+
 Ao executar o script usando os seguinte comandos:
 
-a) chmod +x CompExec.sh  # Para transformar o script executável.
-b) ./CompExec.sh    # Execute o script .
+a) chmod +x CompExec1.sh  # Para transformar o script executável.
+
+b) ./CompExec1.sh    # Execute o script .
 
 Que ira compilar o programa usando configurações padrões e executar o código compilado simulaCellModelAngPot22ABRIL2020.x.
+
 A simulação ira iniciar e criar os seguintes arquivos:
 
 Cell_fil_000000_.csv
+
 Cell_sur_000000_.csv
+
 Cell_fil_000001_.csv
+
 Cell_sur_000001_.csv 
+
 Cell_fil_000002_.csv
+
 Cell_sur_000002_.csv
+
 Cell_fil_000003_.csv
+
 Cell_sur_000003_.csv
+
 Cell_fil_000004_.csv
+
 Cell_sur_000004_.csv
+
 saidaxmakemol_isig_000001_iepi_000000_lmas_000001_.xyz
+
 tabeladevizinhos_spring.dat
+
 define_costhetaijk0.dat  
+
 Define_massa_atomoiculas.dat
+
 energia_tempo_isig_000001_iepi_000000_lmas_000001_.dat 
+
 tabeladevizinhos_angular.dat
+
 tabeladevizinhos_LJ.dat
+
 tipos.mod
+
 variables.mod
+
 parametros.mod
+
 
 
 
